@@ -10,17 +10,14 @@ namespace CodeLab\Bundle\MailerBundle\Message;
 
 use DateTimeInterface;
 use Swift_Mime_ContentEncoder;
-use Symfony\Component\Validator\Validation;
-
 
 /**
  * Class AbstractSwiftMessageBuilder
  * Description of abstract message prepared for send. Here are provided simple validation.
  *
- * @package CodeLab\Bundle\MailerBundle\Message
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-class AbstractMessage extends \Swift_Message
+abstract class AbstractMessage extends \Swift_Message
 {
 
     /**
@@ -67,13 +64,12 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param mixed $addresses
      * @param null $name
-     * @return $this
      */
     public function setTo($addresses, $name = null)
     {
         try {
-            return parent::setTo($addresses, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setTo($addresses, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -81,13 +77,12 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param mixed $addresses
      * @param null $name
-     * @return $this
      */
     public function setBcc($addresses, $name = null)
     {
         try {
-            return parent::setBcc($addresses, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setBcc($addresses, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -96,26 +91,24 @@ class AbstractMessage extends \Swift_Message
      * @param mixed $body
      * @param null $contentType
      * @param null $charset
-     * @return $this
      */
     public function setBody($body, $contentType = null, $charset = null)
     {
         try {
-            return parent::setBody($body, $contentType, $charset);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setBody($body, $contentType, $charset);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $boundary
-     * @return $this
      */
     public function setBoundary($boundary)
     {
         try {
-            return parent::setBoundary($boundary);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setBoundary($boundary);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -123,26 +116,24 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param mixed $addresses
      * @param null $name
-     * @return $this
      */
     public function setCc($addresses, $name = null)
     {
         try {
-            return parent::setCc($addresses, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setCc($addresses, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $charset
-     * @return $this
      */
     public function setCharset($charset)
     {
         try {
-            return parent::setCharset($charset);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setCharset($charset);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
 
@@ -151,91 +142,84 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param array $children
      * @param null $compoundLevel
-     * @return $this
      */
     public function setChildren(array $children, $compoundLevel = null)
     {
         try {
-            return parent::setChildren($children, $compoundLevel);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setChildren($children, $compoundLevel);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $type
-     * @return $this
      */
     public function setContentType($type)
     {
         try {
-            return parent::setContentType($type);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setContentType($type);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param DateTimeInterface $dateTime
-     * @return $this
      */
     public function setDate(DateTimeInterface $dateTime)
     {
         try {
-            return parent::setDate($dateTime);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setDate($dateTime);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param bool $delsp
-     * @return $this
      */
     public function setDelSp($delsp = true)
     {
         try {
-            return parent::setDelSp($delsp);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setDelSp($delsp);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $description
-     * @return $this
      */
     public function setDescription($description)
     {
         try {
-            return parent::setDescription($description);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setDescription($description);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param Swift_Mime_ContentEncoder $encoder
-     * @return $this
      */
     public function setEncoder(Swift_Mime_ContentEncoder $encoder)
     {
         try {
-            return parent::setEncoder($encoder);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setEncoder($encoder);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $format
-     * @return $this
      */
     public function setFormat($format)
     {
         try {
-            return parent::setFormat($format);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setFormat($format);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -243,13 +227,12 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param array|string $addresses
      * @param null $name
-     * @return $this
      */
     public function setFrom($addresses, $name = null)
     {
         try {
-            return parent::setFrom($addresses, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setFrom($addresses, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -257,13 +240,12 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param $field
      * @param $model
-     * @return bool
      */
     public function setHeaderFieldModel($field, $model)
     {
         try {
-            return parent::setHeaderFieldModel($field, $model);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setHeaderFieldModel($field, $model);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -272,39 +254,36 @@ class AbstractMessage extends \Swift_Message
      * @param $field
      * @param $parameter
      * @param $value
-     * @return bool
      */
     public function setHeaderParameter($field, $parameter, $value)
     {
         try {
-            return parent::setHeaderParameter($field, $parameter, $value);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setHeaderParameter($field, $parameter, $value);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $id
-     * @return $this
      */
     public function setId($id)
     {
         try {
-            return parent::setId($id);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setId($id);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param int $length
-     * @return $this
      */
     public function setMaxLineLength($length)
     {
         try {
-            return parent::setMaxLineLength($length);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setMaxLineLength($length);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -316,33 +295,31 @@ class AbstractMessage extends \Swift_Message
     {
         try {
             parent::setNestingLevel($level);
-        } catch (\Swift_RfcComplianceException $exception) {
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param int $priority
-     * @return $this
      */
     public function setPriority($priority)
     {
         try {
-            return parent::setPriority($priority);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setPriority($priority);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param array $addresses
-     * @return $this
      */
     public function setReadReceiptTo($addresses)
     {
         try {
-            return parent::setReadReceiptTo($addresses);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setReadReceiptTo($addresses);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -350,26 +327,24 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param mixed $addresses
      * @param null $name
-     * @return $this
      */
     public function setReplyTo($addresses, $name = null)
     {
         try {
-            return parent::setReplyTo($addresses, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setReplyTo($addresses, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $address
-     * @return $this
      */
     public function setReturnPath($address)
     {
         try {
-            return parent::setReturnPath($address);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setReturnPath($address);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
@@ -377,26 +352,24 @@ class AbstractMessage extends \Swift_Message
     /**
      * @param string $address
      * @param null $name
-     * @return $this
      */
     public function setSender($address, $name = null)
     {
         try {
-            return parent::setSender($address, $name);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setSender($address, $name);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }
 
     /**
      * @param string $subject
-     * @return $this
      */
     public function setSubject($subject)
     {
         try {
-            return parent::setSubject($subject);
-        } catch (\Swift_RfcComplianceException $exception) {
+            parent::setSubject($subject);
+        } catch (\Exception $exception) {
             self::addError(new MessageError($exception->getMessage(), __FUNCTION__));
         }
     }

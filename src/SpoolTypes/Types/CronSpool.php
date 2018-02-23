@@ -6,18 +6,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeLab\Bundle\MailerBundle\QueueTypes\Types;
+namespace CodeLab\Bundle\MailerBundle\SpoolTypes\Types;
 
-use CodeLab\Bundle\MailerBundle\QueueTypes\AbstractQueueType;
+use CodeLab\Bundle\MailerBundle\SpoolTypes\AbstractSpoolType;
 
 
 /**
- * Class CronQueue
- * Queue for sending emails by cron
+ * Class CronSpool
+ * Spool for sending emails by cron
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-class CronQueue extends AbstractQueueType
+class CronSpool extends AbstractSpoolType
 {
 
     /**
@@ -25,7 +25,7 @@ class CronQueue extends AbstractQueueType
      */
     public function __construct()
     {
-        $this->setName('MAILER_CRON_QUEUE');
+        $this->setName('MAILER_CRON_SPOOL');
     }
 
 }

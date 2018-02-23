@@ -6,18 +6,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeLab\Bundle\MailerBundle\QueueTypes\Types;
+namespace CodeLab\Bundle\MailerBundle\SpoolTypes\Types;
 
-use CodeLab\Bundle\MailerBundle\QueueTypes\AbstractQueueType;
+use CodeLab\Bundle\MailerBundle\SpoolTypes\AbstractSpoolType;
 
 
 /**
- * Class DefaultQueue
- * Default queue for sending emails
+ * Class DefaultSpool
+ * Default spool for sending emails
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-class DefaultQueue extends AbstractQueueType
+class DefaultSpool extends AbstractSpoolType
 {
 
 

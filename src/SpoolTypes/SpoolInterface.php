@@ -6,19 +6,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeLab\Bundle\MailerBundle\QueueTypes;
+namespace CodeLab\Bundle\MailerBundle\SpoolTypes;
 
 /**
- * Interface QueueInterface
+ * Interface SpoolInterface
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-interface QueueInterface
+interface SpoolInterface
 {
     /**
-     * Default queue name used for sending emails during kernel terminate
+     * Default spool name used for sending emails during kernel terminate
      */
-    CONST DEFAULT_QUEUE = 'MAILER_DEFAULT_QUQUE';
+    CONST DEFAULT_SPOOL = 'MAILER_DEFAULT_SPOOL';
 
     /**
      * @return string

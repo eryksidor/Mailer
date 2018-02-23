@@ -8,8 +8,6 @@
 
 namespace CodeLab\Bundle\MailerBundle\Message;
 
-use Symfony\Component\Validator\Validation;
-
 
 /**
  * Class MessageError
@@ -61,6 +59,5 @@ final class MessageError
     {
         return $this->target;
     }
-
 
 }

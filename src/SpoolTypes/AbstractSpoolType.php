@@ -6,22 +6,22 @@
  * with this source code in the file LICENSE.
  */
 
-namespace CodeLab\Bundle\MailerBundle\QueueTypes;
+namespace CodeLab\Bundle\MailerBundle\SpoolTypes;
 
 
 /**
- * Class AbstractQueueType
- * Description of queue. Queues are used for sending emails.
+ * Class AbstractSpoolType
+ * Description of spool. spool are used for sending emails.
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-abstract class AbstractQueueType implements QueueInterface
+abstract class AbstractSpoolType implements SpoolInterface
 {
 
     /**
      * @var string
      */
-    private $name = self::DEFAULT_QUEUE;
+    private $name = self::DEFAULT_SPOOL;
 
     /**
      * @return string
