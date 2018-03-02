@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * (c) Eryk Sidor<eryksidor1403@gmail.com>
  *
  * This source file is subject to the MIT license that is bundled
@@ -21,7 +21,7 @@ abstract class AbstractMessage extends \Swift_Message
 {
 
     /**
-     * @var array of errors
+     * @var MessageError[]
      */
     private $errors;
 
@@ -56,9 +56,15 @@ abstract class AbstractMessage extends \Swift_Message
     /**
      * @return array
      */
-    public function getErrors(): array
+    public function getErrorsArray(): array
     {
-        return $this->errors;
+        $errors = [];
+        if(!empty($this->errors)){
+            foreach($this->errors as $error){
+                $errors[] = $error->getErrorArray();
+            }
+        }
+        return $errors;
     }
 
     /**

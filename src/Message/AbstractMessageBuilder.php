@@ -7,6 +7,7 @@
  */
 
 namespace CodeLab\Bundle\MailerBundle\Message;
+use CodeLab\Bundle\MailerBundle\Services\MailerService;
 
 
 /**
@@ -30,13 +31,6 @@ abstract class AbstractMessageBuilder extends AbstractMessage
     {
         parent::__construct($subject, $body, $contentType, $charset);
     }
-
-    /**
-     * @return bool
-     */
-    public function send(): bool
-    {
-
-    }
+    
 
 }

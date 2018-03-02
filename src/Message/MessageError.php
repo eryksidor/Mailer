@@ -60,4 +60,15 @@ final class MessageError
         return $this->target;
     }
 
+    /**
+     * @return array
+     */
+    public function getErrorArray(): array
+    {
+        return array(
+            'message' => $this->message,
+            'target'  => $this->target
+        );
+    }
+
 }

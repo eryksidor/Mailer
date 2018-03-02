@@ -1,4 +1,29 @@
 services:
-#    mailer.example:
-#        class: CodeLab\MailerBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    codelab.mailer.mailer_service:
+        class: CodeLab\Bundle\MailerBundle\Services\MailerService
+        public: true
+        autowire: true
+        arguments:
+            $entityManager: '@Doctrine\ORM\EntityManagerInterface'
+            $defaultMailer: '@swiftmailer.mailer.codelab_default_spool_mailer'
+            $cronMailer: '@swiftmailer.mailer.codelab_cron_spool_mailer'
+            $cronMailerTransport: '@swiftmailer.mailer.codelab_cron_spool_mailer.transport.real'
+    codelab.mailer.transport_logger_service:
+        class: CodeLab\Bundle\MailerBundle\Services\TransportLoggerService
+        public: false
+        autowire: true
+        arguments:
+            $entityManager: '@Doctrine\ORM\EntityManagerInterface'
+    codelab.mailer.swiftmailer_transport_listener:
+        class: CodeLab\Bundle\MailerBundle\EventListener\SwiftmailerTransportListener
+        arguments:
+              $transportLogger: '@codelab.mailer.transport_logger_service'
+        tags:
+                  - { name: swiftmailer.codelab_cron_spool_mailer.plugin }
+                  - { name: swiftmailer.codelab_default_spool_mailer.plugin }
+    CodeLab\Bundle\MailerBundle\Command\CronSpoolSendCommand:
+            arguments:
+                $mailerService: '@codelab.mailer.mailer_service'
+            tags:
+                - { name: 'console.command', command: 'codelab:mailer:cron-spool-send' }
+

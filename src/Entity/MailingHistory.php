@@ -9,139 +9,161 @@
 namespace CodeLab\Bundle\MailerBundle\Entity;
 
 use CodeLab\Bundle\MailerBundle\Message\AbstractMessageBuilder;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class MailingHistory
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
+ *
+ * @ORM\Entity(repositoryClass="CodeLab\Bundle\MailerBundle\Repository\MailingHistoryRepository")
  */
 class MailingHistory
 {
+
+    CONST MESSAGE_STATE_PLANNED = 'PLANNED';
+    CONST MESSAGE_STATE_IN_PROGRESS = 'IN_PROGRESS';
+    CONST MESSAGE_STATE_SENT = 'SENT';
+    CONST MESSAGE_STATE_FAILED = 'FAILED';
+
     /**
-     * @var integer
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var \DateTime
+     * @ORM\Column(type="datetime")
      */
     private $creationTime;
 
     /**
-     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $sendAt;
 
     /**
-     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $sentAt;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $hash;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $spoolType;
 
     /**
-     * @var integer
+     * @ORM\Column(type="integer")
      */
     private $priority;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $state;
 
     /**
-     * @var integer
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $sendAttempts;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $errors;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $sender;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $from;
+    private $mailFrom;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $to;
+    private $mailTo;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $subject;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $charset;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contentType;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $swiftMessageId;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $bcc;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $cc;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $replyTo;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $returnPath;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
     private $readReceiptTo;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $boundary;
 
 
     public function __construct()
     {
+        $this->sendAttempts = 0;
+        $this->state = self::MESSAGE_STATE_PLANNED;
         $this->creationTime = new \DateTime();
         $this->priority = AbstractMessageBuilder::PRIORITY_NORMAL;
+        
+        /**
+         * @TODO need beeter hash
+         */
         $this->hash = md5(time());
     }
 
@@ -169,6 +191,23 @@ class MailingHistory
     {
         $this->creationTime = $creationTime;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * @param mixed $updateTime
+     */
+    public function setUpdateTime($updateTime): void
+    {
+        $this->updateTime = $updateTime;
+    }
+
 
     /**
      * @return \DateTime
@@ -285,79 +324,87 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getErrors(): string
+    public function getErrors(): array
     {
         return json_decode($this->errors, true);
     }
 
     /**
-     * @param string $errors
+     * @param $errors
      */
-    public function setErrors(string $errors): void
+    public function setErrors($errors): void
     {
         $this->errors = json_encode($errors);
     }
 
     /**
+     * @param $error
+     */
+    public function addError($error)
+    {
+        $errors = $this->getErrors();
+        $errors[] = $error;
+        self::setErrors($errors);
+    }
+
+    /**
      * @return string
      */
-    public function getSender(): string
+    public function getSender(): ? string
     {
         return json_decode($this->sender, true);
     }
 
     /**
-     * @param string $sender
+     * @param $sender
      */
-    public function setSender(string $sender): void
+    public function setSender($sender): void
     {
         $this->sender = json_encode($sender);
     }
 
+
+    public function getMailFrom(): ? array
+    {
+        return json_decode($this->mailFrom, true);
+    }
+
+    /**
+     * @param $from
+     */
+    public function setFrom($from): void
+    {
+        $this->mailFrom = json_encode($from);
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getMailTo(): ? array
+    {
+        return json_decode($this->mailTo, true);
+    }
+
+    /**
+     * @param $to
+     */
+    public function setTo($to): void
+    {
+        $this->mailTo = json_encode($to);
+    }
+
     /**
      * @return string
      */
-    public function getFrom(): string
-    {
-        return json_decode($this->from, true);
-    }
-
-    /**
-     * @param string $from
-     */
-    public function setFrom(string $from): void
-    {
-        $this->from = json_encode($from);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTo(): string
-    {
-        return json_decode($this->to, true);
-    }
-
-    /**
-     * @param string $to
-     */
-    public function setTo(string $to): void
-    {
-        $this->to = json_encode($to);
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubject(): string
+    public function getSubject(): ? string
     {
         return $this->subject;
     }
 
     /**
-     * @param string $subject
+     * @param $subject
      */
-    public function setSubject(string $subject): void
+    public function setSubject($subject): void
     {
         $this->subject = $subject;
     }
@@ -365,15 +412,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getBody(): string
+    public function getBody(): ? string
     {
         return $this->body;
     }
 
     /**
-     * @param string $body
+     * @param  $body
      */
-    public function setBody(string $body): void
+    public function setBody($body): void
     {
         $this->body = $body;
     }
@@ -381,7 +428,7 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getCharset(): string
+    public function getCharset(): ? string
     {
         return $this->charset;
     }
@@ -397,7 +444,7 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getContentType(): string
+    public function getContentType(): ? string
     {
         return $this->contentType;
     }
@@ -429,15 +476,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getBcc(): string
+    public function getBcc(): ? string
     {
         return json_decode($this->bcc, true);
     }
 
     /**
-     * @param string $bcc
+     * @param $bcc
      */
-    public function setBcc(string $bcc): void
+    public function setBcc($bcc): void
     {
         $this->bcc = json_encode($bcc);
     }
@@ -445,15 +492,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getCc(): string
+    public function getCc(): ? string
     {
         return json_decode($this->cc, true);
     }
 
     /**
-     * @param string $cc
+     * @param  $cc
      */
-    public function setCc(string $cc): void
+    public function setCc($cc): void
     {
         $this->cc = json_encode($cc);
     }
@@ -461,15 +508,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getReplyTo(): string
+    public function getReplyTo(): ? string
     {
         return $this->replyTo;
     }
 
     /**
-     * @param string $replyTo
+     * @param $replyTo
      */
-    public function setReplyTo(string $replyTo): void
+    public function setReplyTo($replyTo): void
     {
         $this->replyTo = $replyTo;
     }
@@ -477,15 +524,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getReturnPath(): string
+    public function getReturnPath(): ? string
     {
         return $this->returnPath;
     }
 
     /**
-     * @param string $returnPath
+     * @param $returnPath
      */
-    public function setReturnPath(string $returnPath): void
+    public function setReturnPath($returnPath): void
     {
         $this->returnPath = $returnPath;
     }
@@ -493,15 +540,15 @@ class MailingHistory
     /**
      * @return string
      */
-    public function getReadReceiptTo(): string
+    public function getReadReceiptTo():? string
     {
         return json_decode($this->readReceiptTo, true);
     }
 
     /**
-     * @param string $readReceiptTo
+     * @param  $readReceiptTo
      */
-    public function setReadReceiptTo(string $readReceiptTo): void
+    public function setReadReceiptTo($readReceiptTo): void
     {
         $this->readReceiptTo = json_encode($readReceiptTo);
     }

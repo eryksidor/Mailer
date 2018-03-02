@@ -8,7 +8,10 @@
 
 namespace CodeLab\Bundle\MailerBundle\Message;
 
+use CodeLab\Bundle\MailerBundle\Entity\MailingHistory;
+use CodeLab\Bundle\MailerBundle\Services\MailerService;
 use CodeLab\Bundle\MailerBundle\SpoolTypes\SpoolInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class MailerMessage
@@ -16,13 +19,23 @@ use CodeLab\Bundle\MailerBundle\SpoolTypes\SpoolInterface;
  *
  * @author Eryk Sidor <eryksidor1403@gmail.com>
  */
-abstract class MailerMessage extends AbstractMessageBuilder implements MailerMessageInterface
+final class MailerMessage extends AbstractMessageBuilder
 {
 
     /**
      * @var SpoolInterface
      */
     private $spool;
+
+    /**
+     * @var MailingHistory
+     */
+    private $mailingHistory = false;
+
+    /**
+     * @var \DateTime
+     */
+    private $sendAd;
 
     /**
      * MailerMessage constructor.
@@ -36,6 +49,45 @@ abstract class MailerMessage extends AbstractMessageBuilder implements MailerMes
     {
         $this->spool = $spool;
         parent::__construct($subject, $body, $contentType, $charset);
+    }
+
+    /**
+     * @return MailingHistory
+     */
+    public function getMailingHistory()
+    {
+        return $this->mailingHistory;
+    }
+
+    /**
+     * @param MailingHistory $mailingHistory
+     */
+    public function setMailingHistory(MailingHistory $mailingHistory)
+    {
+        $this->mailingHistory = $mailingHistory;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSendAd(): ? \DateTime
+    {
+        return $this->sendAd;
+    }
+
+    /**
+     * @param \DateTime $sendAd
+     */
+    public function setSendAd(\DateTime $sendAd): void
+    {
+        $this->sendAd = $sendAd;
+    }
+
+    /**
+     * @return SpoolInterface
+     */
+    public function getSpool(){
+        return $this->spool;
     }
 
 }

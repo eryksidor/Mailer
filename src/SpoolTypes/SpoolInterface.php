@@ -19,6 +19,7 @@ interface SpoolInterface
      * Default spool name used for sending emails during kernel terminate
      */
     CONST DEFAULT_SPOOL = 'MAILER_DEFAULT_SPOOL';
+    CONST CRON_SPOOL = 'MAILER_CRON_SPOOL';
 
     /**
      * @return string

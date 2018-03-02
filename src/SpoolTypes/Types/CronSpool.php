@@ -25,7 +25,7 @@ class CronSpool extends AbstractSpoolType
      */
     public function __construct()
     {
-        $this->setName('MAILER_CRON_SPOOL');
+        $this->setName(self::CRON_SPOOL);
     }
 
 }
