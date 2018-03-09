@@ -36,7 +36,15 @@ final class MailerService
      */
     private $cronMailer;
 
+    /**
+     * @var \Swift_Transport
+     */
     private $cronMailerTransport;
+
+    /**
+     * @var integer
+     */
+    private $resentInterval;
 
     /**
      * MailerService constructor.
@@ -44,12 +52,13 @@ final class MailerService
      * @param \Swift_Mailer $defaultMailer
      * @param \Swift_Mailer $cronMailer
      */
-    public function __construct(EntityManagerInterface $entityManager, \Swift_Mailer $defaultMailer, \Swift_Mailer $cronMailer, \Swift_Transport $cronMailerTransport)
+    public function __construct(EntityManagerInterface $entityManager, \Swift_Mailer $defaultMailer, \Swift_Mailer $cronMailer, \Swift_Transport $cronMailerTransport, $resendInterval)
     {
         $this->em = $entityManager;
         $this->defaultMailer = $defaultMailer;
         $this->cronMailer = $cronMailer;
         $this->cronMailerTransport = $cronMailerTransport;
+        $this->resentInterval = $resendInterval;
     }
 
     /**
@@ -143,7 +152,7 @@ final class MailerService
 
     private function getMessagesForCronSend()
     {
-        return $messages = $this->em->getRepository(MailingHistory::class)->getMessagesForCronSpoolSend();
+        return $messages = $this->em->getRepository(MailingHistory::class)->getMessagesForCronSpoolSend($this->resentInterval);
     }
 
     /**

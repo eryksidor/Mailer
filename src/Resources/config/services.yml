@@ -8,6 +8,7 @@ services:
             $defaultMailer: '@swiftmailer.mailer.codelab_default_spool_mailer'
             $cronMailer: '@swiftmailer.mailer.codelab_cron_spool_mailer'
             $cronMailerTransport: '@swiftmailer.mailer.codelab_cron_spool_mailer.transport.real'
+            $resendInterval: '%mailer.resend_interval%'
     codelab.mailer.transport_logger_service:
         class: CodeLab\Bundle\MailerBundle\Services\TransportLoggerService
         public: false

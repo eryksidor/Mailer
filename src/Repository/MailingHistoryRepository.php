@@ -22,7 +22,7 @@ class MailingHistoryRepository extends EntityRepository
      * Get messages for sending by cron
      * @return mixed
      */
-    public function getMessagesForCronSpoolSend(){
+    public function getMessagesForCronSpoolSend($resentInterval){
         $qb = $this->createQueryBuilder('qb');
 
         $qb->from(MailingHistory::class, 'email');
@@ -32,8 +32,7 @@ class MailingHistoryRepository extends EntityRepository
         $qb->setParameter('stateForCron', MailingHistory::MESSAGE_STATE_PLANNED);
         $qb->setParameter('spoolTypeForCron', CronSpool::CRON_SPOOL);
         $qb->setParameter('today', time());
-        $qb->setParameter('resendInterval', (new \DateTime())->sub(new \DateInterval("PT10M")));
-
+        $qb->setParameter('resendInterval', (new \DateTime())->sub(new \DateInterval("PT{$resentInterval}M")));
 
         $qb->orderBy('qb.priority', 'ASC');
         $qb->orderBy('qb.creationTime', 'ASC');
