@@ -23,13 +23,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode("resend_interval")
-                    ->defaultValue(5)
-                ->end()
-                ->children()
-                    ->scalarNode("default_send_from")
-                    ->defaultValue('')
-                ->end();
+                    ->scalarNode("resend_interval")->defaultValue(5)->end()
+                    ->scalarNode("default_send_from")->defaultValue('')->end();
 
         return $treeBuilder;
     }
