@@ -26,7 +26,6 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode("resend_interval")
                     ->defaultValue(5)
                 ->end()
-            ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode("default_send_from")
                     ->defaultValue('')
