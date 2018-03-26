@@ -9,7 +9,7 @@
 namespace CodeLab\Bundle\MailerBundle\Command;
 
 use CodeLab\Bundle\MailerBundle\Entity\MailingHistory;
-use CodeLab\Bundle\MailerBundle\Services\MailerService;
+use CodeLab\Bundle\MailerBundle\Services\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,16 +32,16 @@ class CronSpoolSendCommand extends Command
 
 
     /**
-     * @var MailerService
+     * @var Mailer
      */
     private $mailerService;
 
     /**
      * CronSpoolSendCommand constructor.
-     * @param MailerService $mailerService
+     * @param Mailer $mailerService
      * @param null|string $name
      */
-    public function __construct(MailerService $mailerService, ?string $name = null)
+    public function __construct(Mailer $mailerService, ?string $name = null)
     {
         parent::__construct($name);
         $this->mailerService = $mailerService;

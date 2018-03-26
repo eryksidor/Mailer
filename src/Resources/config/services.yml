@@ -1,6 +1,6 @@
 services:
     codelab.mailer.mailer_service:
-        class: CodeLab\Bundle\MailerBundle\Services\MailerService
+        class: CodeLab\Bundle\MailerBundle\Services\Mailer
         public: true
         autowire: true
         arguments:

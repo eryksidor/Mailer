@@ -9,7 +9,7 @@
 namespace CodeLab\Bundle\MailerBundle\Message;
 
 use CodeLab\Bundle\MailerBundle\Entity\MailingHistory;
-use CodeLab\Bundle\MailerBundle\Services\MailerService;
+use CodeLab\Bundle\MailerBundle\Services\Mailer;
 use CodeLab\Bundle\MailerBundle\SpoolTypes\SpoolInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

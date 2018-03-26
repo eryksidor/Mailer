@@ -7,7 +7,7 @@
  */
 
 namespace CodeLab\Bundle\MailerBundle\Message;
-use CodeLab\Bundle\MailerBundle\Services\MailerService;
+use CodeLab\Bundle\MailerBundle\Services\Mailer;
 
 
 /**

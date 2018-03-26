@@ -23,6 +23,7 @@ class MailerExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('mailer.resend_interval', $config['resend_interval']);
+        $container->setParameter('mailer.default_send_from', $config['default_send_from']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

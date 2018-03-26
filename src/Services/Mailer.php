@@ -16,10 +16,10 @@ use CodeLab\Bundle\MailerBundle\SpoolTypes\Types\DefaultSpool;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class MailerService
+ * Class Mailer
  *
  */
-final class MailerService
+final class Mailer
 {
     /**
      * @var EntityManagerInterface
